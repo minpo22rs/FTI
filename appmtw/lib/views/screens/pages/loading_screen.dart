@@ -49,30 +49,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
     // final String? userId = prefs.getString('username');
 
-    var url = "http://10.0.2.2/flutter/api_php/ApiController.php";
+    var url = "https://fti77.sapappwork.xyz/API/index-main";
     var data = {'userid': userid};
-    print(data);
-    print("testtt");
     await http.post(Uri.parse(url), body: data).then((response) async {
-      print("test22222222222222222222");
-      var result1 = json.decode(response.body);
-      print(result1['bannermain']);
-      // print(result1['banners']['photo']);
-      // print(result1['account']);
-      print("test333333333333333");
-
+      var result1 = jsonDecode(response.body);
       resultData = result1['bannermain'];
       main = <Main>[];
       resultData2 = result1['top1'];
       onecon = <RatingOne>[];
-      resultData3 = result1['top2'];
+      resultData3 = result1['top3'];
       twocon = <RatingTwo>[];
-      resultData4 = result1['top3'];
+      resultData4 = result1['top9'];
       onelinecon = <RatingLineone>[];
-      resultData5 = result1['top4'];
+      resultData5 = result1['top15'];
       twolinecon = <RatingLineTwo>[];
-      bannersub = json.encode(result1['banners']['photo']);
-      bannerfooter = json.encode(result1['bannerf']['photo']);
+      bannersub = result1['banners']['photo'];
+      bannerfooter = result1['bannerf']['photo'];
       resultRestaurant = result1['restaurant'];
       restaurants = <Restaurant>[];
       resultProduct = result1['product'];
@@ -81,16 +73,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
       hotels = <Hotel>[];
       resultAttraction = result1['location'];
       attractions = <Attraction>[];
-      // var numformat =
-      //     NumberFormat('#,###.##').format(result1['account']['wallet']);
-      var numformat = json.encode(result1['account']['wallet']);
+      var numformat =
+          NumberFormat('#,###.##').format(result1['account']['wallet']);
       account_name = '${result1['account']['name']}';
       account_wallet = '${numformat}';
       resultDatacate = result1['cate_p'];
       cate = <CategoryProduct>[];
       resultDatacater = result1['cate_r'];
       cater = <CategoryRestaurant>[];
-      print("test555555");
 
       for (var i = 0; i < resultData.length; i++) {
         Main t = Main.fromJson(resultData[i]);
@@ -199,7 +189,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   //   print(userId);
   //   if (userId != '') {
-  //     var url = "https://mtwa.xyz/API/account-detail";
+  //     var url = "https://fti77.sapappwork.xyz/API/account-detail";
   //     var data = {'userid': userId};
   //     await http.post(Uri.parse(url), body: data).then((response) {
   //       if (response.statusCode == 200) {

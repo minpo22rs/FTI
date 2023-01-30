@@ -292,7 +292,7 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                         GestureDetector(
                           onTap: () async {
                             var url =
-                                "http://10.0.2.2/flutter/new_login_screen.php";
+                                "https://fti77.sapappwork.xyz/API/login-mobile-mtwa";
                             var data = {
                               'phone': phonectrl.text,
                               'password': passwordctrl.text
@@ -301,19 +301,14 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                                 .post(Uri.parse(url), body: data)
                                 .then((response) async {
                               print(phonectrl.text);
-
-                              var result = json.decode(response.body);
-                              print(result);
-
+                              var result = jsonDecode(response.body);
                               if (response.statusCode == 200) {
                                 if (result['statuslogin'] == '1') {
                                   final SharedPreferences prefs =
                                       await SharedPreferences.getInstance();
                                   prefs.setString(
                                       'username', '${result['user_id']}');
-
                                   prefs.setString('role', '${result['role']}');
-
                                   if (result['role'] == 'U') {
                                     Navigator.push(
                                       context,
@@ -335,13 +330,11 @@ class _NewLoginScreenState extends State<NewLoginScreen> {
                                         (route) => false);
                                   }
                                 } else {
-                                  print(
-                                      "เบอร์โทรศัพท์ หรือ password ไม่ถูกต้อง");
-                                  // Fluttertoast.showToast(
-                                  //     gravity: ToastGravity.CENTER,
-                                  //     msg:
-                                  //         "เบอร์โทรศัพท์ หรือ password ไม่ถูกต้อง",
-                                  //     toastLength: Toast.LENGTH_SHORT);
+                                  Fluttertoast.showToast(
+                                      gravity: ToastGravity.CENTER,
+                                      msg:
+                                          "เบอร์โทรศัพท์ หรือ password ไม่ถูกต้อง",
+                                      toastLength: Toast.LENGTH_SHORT);
                                 }
                               } else {
                                 Fluttertoast.showToast(

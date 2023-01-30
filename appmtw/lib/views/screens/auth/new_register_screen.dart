@@ -397,11 +397,11 @@ class _NewRegisterScreenState extends State<NewRegisterScreen> {
                               onPressed: () async {
                                 if (phonectrl.text != '') {
                                   var url =
-                                      "https://mtwa.xyz/API/otp-mobile-mtwa";
+                                      "https://fti77.sapappwork.xyz/API/otp-mobile-mtwa";
                                   var data = {
                                     'phone': phonectrl.text,
                                   };
-                                  print(data);
+                                  // print(data);
                                   await http
                                       .post(Uri.parse(url), body: data)
                                       .then((response) {
@@ -438,7 +438,7 @@ class _NewRegisterScreenState extends State<NewRegisterScreen> {
                                 phonectrl.text != '') {
                               if (otpctrl.text != '') {
                                 var url =
-                                    "http://10.0.2.2/flutter/new_register_screen.php";
+                                    "https://fti77.sapappwork.xyz/API/register-mobile-mtwa";
                                 var data = {
                                   'name': namectrl.text,
                                   'email': emailctrl.text,
@@ -459,9 +459,7 @@ class _NewRegisterScreenState extends State<NewRegisterScreen> {
                                   var result = json.decode(response.body);
 
                                   if (response.statusCode == 200) {
-                                    if (result['statusregister'] == 0) {
-                                      print("ยินดีต้อนรับ");
-
+                                    if (result['statusregister'] == '1') {
                                       Fluttertoast.showToast(
                                           gravity: ToastGravity.CENTER,
                                           msg: "Register Success",
@@ -472,18 +470,15 @@ class _NewRegisterScreenState extends State<NewRegisterScreen> {
                                           builder: (ctx) => NewLoginScreen(),
                                         ),
                                       );
-                                    } else if (result['statusregister'] == 1) {
-                                      print(
-                                          "เบอร์โทรศัพท์หรืออีเมล์นี้ได้ถูกใช้งานไปแล้วค่ะ");
-
+                                    } else if (result['statusregister'] ==
+                                        '2') {
                                       Fluttertoast.showToast(
                                           gravity: ToastGravity.CENTER,
                                           msg:
                                               "เบอร์โทรศัพท์หรืออีเมล์นี้ได้ถูกใช้งานไปแล้วค่ะ",
                                           toastLength: Toast.LENGTH_SHORT);
-                                    } else if (result['statusregister'] == 2) {
-                                      print("รหัส OTP ไม่ถูกต้องค่ะ");
-
+                                    } else if (result['statusregister'] ==
+                                        '4') {
                                       Fluttertoast.showToast(
                                           gravity: ToastGravity.CENTER,
                                           msg: "รหัส OTP ไม่ถูกต้องค่ะ",
